@@ -1,3 +1,7 @@
+"""
+Contains choices for proposed detector and classifier architectures.
+Automatically submits on select.
+""""
 from flask_wtf import FlaskForm
 from wtforms import SelectField
 

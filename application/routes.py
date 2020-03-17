@@ -20,10 +20,10 @@ def index():
 
 @app.route("/camera_stream", methods=["GET"])
 def camera_stream():
-    models= eval(request.args["models"]) # TODO: implement Model class; image processing
+    models = eval(request.args["models"]) # TODO: implement Model class; image processing
     camera = Camera()
     if not camera.is_available:
-        return Response(camera.generate(),
+        return Response(camera.generate(models=models),
                         mimetype='multipart/x-mixed-replace; boundary=frame')
     
     return "/static/camera_not_found.jpg"
