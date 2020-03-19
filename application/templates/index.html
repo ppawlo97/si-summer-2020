@@ -30,7 +30,7 @@
             </nav>
        
         <div class="container vertical-center">
-          <img style="margin-left: 25%; max-width: 500px; max-height: 400px;" src="{{url_for('camera_stream', models=models)}}" onerror="this.onerror=null;this.src='/static/camera_not_found.jpg';">
+          <img style="margin-left: 25%; max-width: 500px; max-height: 400px;" src="{{url_for('camera_stream', models_selection=models_selection)}}" onerror="this.onerror=null;this.src='/static/camera_not_found.jpg';">
           
           <form method="POST">
             {{ model_form.hidden_tag() }}
