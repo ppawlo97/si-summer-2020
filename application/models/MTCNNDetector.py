@@ -1,3 +1,14 @@
+"""
+Utilizes pretrained MTCNN model.
+
+References
+----------
+    1. Weights and implementation:
+        https://github.com/ipazc/mtcnn
+    2. Original paper:
+        https://arxiv.org/ftp/arxiv/papers/1604/1604.02878.pdf
+
+"""
 from typing import List
 
 import cv2

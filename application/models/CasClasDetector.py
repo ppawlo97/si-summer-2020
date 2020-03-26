@@ -1,3 +1,14 @@
+"""
+Utilizes OpenCV's pretrained CascadeClassifier.
+
+References
+----------
+    1. Architecture overview:
+        https://docs.opencv.org/3.4/db/d28/tutorial_cascade_classifier.html
+    2. Directory with pretrained model's weights:
+        https://github.com/opencv/opencv/tree/master/data/haarcascades 
+
+"""
 import os
 from typing import List
 
