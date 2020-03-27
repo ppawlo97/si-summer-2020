@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+        
+        <div class="container vertical-center">
+          <img style="margin-left: 25%; max-width: 500px; max-height: 400px;" src="{{url_for('camera_stream', models_selection=models_selection)}}" onerror="this.onerror=null;this.src='/static/camera_not_found.jpg';">
+          
+          <form method="POST">
+            {{ model_form.hidden_tag() }}
+            
+            {% for field in model_form if field.type == "SelectField" %}
+              <div class="col-auto ml-5 my-4"> 
+                {{ field.label(class="mr-sm-2") }}
+                {{ field(class="custom-select mr-sm-2", onchange="this.form.submit()") }}
+              </div>
+              <br>
+            {% endfor %}
+          </form>
+        
+        </div>
+
+{% endblock %}

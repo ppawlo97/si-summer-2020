@@ -9,12 +9,17 @@ from application.forms.ModelForm import ModelForm
 
 
 @app.route("/", methods=["GET", "POST"])
-def index():
+def examples():
+    return render_template("base.html")
+
+
+@app.route("/live", methods=["GET", "POST"])
+def live():
     model_form = ModelForm()
     models_selection = {field.name: field.data for field in model_form
                 if field.type == "SelectField"}
     
-    return render_template("index.html",
+    return render_template("live.html",
                            model_form=model_form,
                            models_selection=models_selection)
     
@@ -23,7 +28,7 @@ def index():
 def camera_stream():
     models_selection = eval(request.args["models_selection"])
     camera = Camera(detector=MODELS[models_selection["detector"]],
-                    classifier=None)
+                    classifier=MODELS[models_selection["classifier"]])
     if camera.is_available:
         return Response(camera.generate(),
                         mimetype='multipart/x-mixed-replace; boundary=frame')

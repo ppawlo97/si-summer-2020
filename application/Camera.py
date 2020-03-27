@@ -6,6 +6,9 @@ import cv2
 import imutils
 from imutils.video import WebcamVideoStream
 
+from application.utils import draw_boxes
+from application.utils import extract_face
+
 logger = logging.getLogger("Camera")
 
 
@@ -54,12 +57,19 @@ class Camera:
             # Face Detection
             frame = self.detector.preprocess_frame(img)
             boxes = self.detector.detect_faces(frame)
-
-            for bounding_box in boxes:
-                cv2.rectangle(img,
-                (bounding_box[0], bounding_box[1]),
-                (bounding_box[0]+bounding_box[2], bounding_box[1] + bounding_box[3]),
-                (0,155,255),
-                1)
+            boxes = [box for box in boxes
+                             if all(cord >= 0 for cord in box)] 
+            
+            faces = [extract_face(img, box) for box in boxes]
+            
+            # Emotion Recognition
+            emotions = False
+            if faces:
+                images = self.classifier.preprocess_images(faces)
+                emotions = self.classifier.predict_emotions(images)
+            
+            img = draw_boxes(img,
+                             boxes,
+                             emotions)
 
             yield cv2.imencode('.jpg', img)[1].tobytes()
