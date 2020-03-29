@@ -21,7 +21,10 @@ from application.utils import get_urls_list
 logging.info("Loading models...")
 MODELS = {"mtcnn": MTCNNDetector(),
           "casclas": CasClasDetector(app.config["PRETRAINED_CASCLAS"]),
-          "mlp": MLPClassifier(app.config["MLP_WEIGHTS"])}
+          "mlp": MLPClassifier(app.config["MLP_WEIGHTS"]),
+          "svm": SVMClassifier(app.config["SVM"]),
+          "cnn": CNNClassifier(app.config["CNN_WEIGHTS"]),
+          "nb": NaiveBayesClassifier(app.config["CATEGORICAL_NB"])}
 
 IMG_URLS = get_urls_list(app.config["OFFLINE_IMG_URLS"])
 
