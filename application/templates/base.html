@@ -12,6 +12,22 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
   </head>
 
+  <script> 
+    document.onreadystatechange = function() { 
+        if (document.readyState !== "complete") { 
+            document.querySelector(
+              "#content").style.visibility = "hidden"; 
+            document.querySelector( 
+              "#loader").style.visibility = "visible"; 
+        } else { 
+            document.querySelector( 
+              "#loader").style.display = "none"; 
+            document.querySelector(
+              "#content").style.visibility = "visible";  
+        } 
+    }; 
+  </script>         
+
   <style>
     .vertical-center {
     min-height: 95%;
