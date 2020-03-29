@@ -2,12 +2,13 @@
 from typing import Dict
 from typing import List
 from typing import Tuple
+from urllib.request import urlopen
 
 import cv2
 import numpy as np
 
 EMOTION_CMAP = {'neutral': (255, 255, 255),
-                'happiness': (0, 150, 188),
+                'happiness': (0, 255, 255),
                 'surprise': (0, 140, 255),
                 'sadness': (98, 98, 98),
                 'anger': (21, 8, 200),
@@ -15,6 +16,45 @@ EMOTION_CMAP = {'neutral': (255, 255, 255),
                 'fear': (106, 0, 106),
                 'contempt': (135, 184, 222),
                 'unknown': (0, 0, 0)}
+
+
+def get_urls_list(txt_path: str) -> List[str]:
+    """Reads URLs of selected 'offline' images."""
+    with open(txt_path, "r") as txt:
+        urls = [url for url in txt]
+    return urls
+
+
+def get_image(url: str) -> np.ndarray:
+    """Gets the image from specified URL."""
+    req = urlopen(url)   
+    img = np.asarray(bytearray(req.read()), dtype=np.uint8)
+    img = cv2.imdecode(img, -1)
+    return img
+
+
+def predict_pipeline(img,
+                     detector,
+                     classifier) -> bytes:
+    """Performs the entire prediction pipeline."""    
+    # Face Detection
+    frame = detector.preprocess_frame(img)
+    boxes = detector.detect_faces(frame)
+    boxes = [box for box in boxes
+                        if all(cord >= 0 for cord in box)] 
+    
+    faces = [extract_face(img, box) for box in boxes]
+    
+    # Emotion Recognition
+    emotions = False
+    if faces:
+        images = classifier.preprocess_images(faces)
+        emotions = classifier.predict_emotions(images)
+    
+    img = draw_boxes(img,
+                     boxes,
+                     emotions)
+    return cv2.imencode('.jpg', img)[1].tobytes()
 
 
 def extract_face(frame: np.ndarray,

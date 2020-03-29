@@ -5,7 +5,7 @@
           <div id ="loader" class="spinner-border" style="width: 3rem; height: 3rem; position: fixed; left: 47.5%; top: 45%;" role="status">
             <span class="sr-only">Loading...</span>
           </div>
-          <img style="margin-left: 25%; max-width: 500px; max-height: 400px;" src="{{url_for('camera_stream', models_selection=models_selection)}}" onerror="this.onerror=null;this.src='/static/camera_not_found.jpg';">
+          <img style="margin-left: 25%; max-width: 560px; max-height: 420px;" src="{{url_for('camera_stream', models_selection=models_selection)}}" onerror="this.onerror=null;this.src='/static/camera_not_found.jpg';">
           
           <form method="POST">
             {{ model_form.hidden_tag() }}

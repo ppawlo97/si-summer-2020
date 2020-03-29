@@ -13,3 +13,5 @@ class Config:
                 "application/static/weights/cnn"
     CATEGORICAL_NB = os.environ.get("CATEGORICAL_NB") or\
                 "application/static/weights/categorical_nb.pickle"
+    OFFLINE_IMG_URLS = os.environ.get("OFFLINE_IMG_URLS") or\
+                "application/static/img_urls.txt"

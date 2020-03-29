@@ -2,12 +2,10 @@
 import logging
 from typing import Dict
 
-import cv2
 import imutils
 from imutils.video import WebcamVideoStream
 
-from application.utils import draw_boxes
-from application.utils import extract_face
+from application.utils import predict_pipeline
 
 logger = logging.getLogger("Camera")
 
@@ -52,24 +50,8 @@ class Camera:
         """
         while True:
             img = self.camera.read()
-            img = imutils.resize(img, width=500, height=400)
-            
-            # Face Detection
-            frame = self.detector.preprocess_frame(img)
-            boxes = self.detector.detect_faces(frame)
-            boxes = [box for box in boxes
-                             if all(cord >= 0 for cord in box)] 
-            
-            faces = [extract_face(img, box) for box in boxes]
-            
-            # Emotion Recognition
-            emotions = False
-            if faces:
-                images = self.classifier.preprocess_images(faces)
-                emotions = self.classifier.predict_emotions(images)
-            
-            img = draw_boxes(img,
-                             boxes,
-                             emotions)
-
-            yield cv2.imencode('.jpg', img)[1].tobytes()
+            img = imutils.resize(img, width=560, height=420)
+            img = predict_pipeline(img=img,
+                                   detector=self.detector,
+                                   classifier=self.classifier)
+            yield img

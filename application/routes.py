@@ -3,14 +3,18 @@ from flask import Response
 from flask import request
 
 from application import app
+from application import IMG_URLS
 from application import MODELS
 from application.Camera import Camera
 from application.forms.ModelForm import ModelForm
+from application.utils import get_image
+from application.utils import predict_pipeline
 
 
-@app.route("/", methods=["GET", "POST"])
+@app.route("/", methods=["GET"])
 def examples():
-    return render_template("base.html")
+    return render_template("examples.html",
+                            img_urls=IMG_URLS)
 
 
 @app.route("/live", methods=["GET", "POST"])
@@ -34,3 +38,13 @@ def camera_stream():
                         mimetype='multipart/x-mixed-replace; boundary=frame')
     
     return "/static/camera_not_found.jpg"
+
+
+@app.route("/predict", methods=["GET"])
+def predict():
+    img_url = request.args["img_url"]
+    img = get_image(img_url)
+    img = predict_pipeline(img=img,
+                           detector=MODELS["mtcnn"],
+                           classifier=MODELS["cnn"])
+    return img
