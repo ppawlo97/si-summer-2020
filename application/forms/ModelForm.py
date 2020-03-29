@@ -13,6 +13,8 @@ class ModelForm(FlaskForm):
                            default="mtcnn")
     
     classifier = SelectField("Face Classifier",
-                             choices=[("mlp", "MLP"),
-                                      ("cnn", "CNN")],
-                             default="mlp")
+                             choices=[("mlp", "Multilayer Perceptron"),
+                                      ("cnn", "CNN"),
+                                      ("nb", "Categorical Naive Bayes"),
+                                      ("svm", "Linear SVM")],
+                             default="cnn")

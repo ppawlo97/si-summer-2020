@@ -51,25 +51,3 @@ def draw_boxes(frame: np.ndarray,
                     color=color,
                     thickness=1)
     return frame
-
-
-# https://stackoverflow.com/questions/16646183/crop-an-image-in-the-centre-using-pil
-def center_crop(img: np.ndarray,
-                new_width: int,
-                new_height: int) -> np.ndarray:        
-    """Center crops the image to a new size."""
-    width = img.shape[1]
-    height = img.shape[0]
-
-    left = int(np.ceil((width - new_width) / 2))
-    right = width - int(np.floor((width - new_width) / 2))
-
-    top = int(np.ceil((height - new_height) / 2))
-    bottom = height - int(np.floor((height - new_height) / 2))
-
-    if len(img.shape) == 2:
-        center_cropped_img = img[top:bottom, left:right]
-    else:
-        center_cropped_img = img[top:bottom, left:right, ...]
-
-    return center_cropped_img
