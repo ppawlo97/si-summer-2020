@@ -9,7 +9,7 @@
   <h3 align="center">Final project for Artificial Intelligence course at SGH.</h3>
 
   <p align="center">
-    Below find the information on usage, reference links and creator notes.
+    Below find the information on setup, reference links and creator notes.
     <br />
     <br />
   </p>
@@ -19,6 +19,7 @@
 
 ## Table of Contents
 
+* [About the Project](#about-the-project)
 * [Getting Started](#getting-started)
   * [Prerequisites](#prerequisites)
   * [Installation](#installation)
@@ -27,9 +28,15 @@
 
 
 
+## About the Project
+
+This project serves as a complementary work to the report on Facial Emotion Recognition I have written for the A.I. class at SGH. Built web application allows the user to assess the performance of several machine learning models either on preloaded images or video stream via a web camera.
+
+All models have been trained from scratch on the [FER+](https://github.com/microsoft/FERPlus) dataset.
+
 ## Getting Started
 
-To get a local copy up and running follow these steps.
+Follow these steps to get a local copy up and running.
 
 ### Prerequisites
 
@@ -43,7 +50,7 @@ To get a local copy up and running follow these steps.
 ```sh
 git clone https://github.com/ppawlo97/si-summer-2020.git
 ```
-2. Create virtual environment for the project.
+2. Create separate virtual environment for the project.
 ```sh
 conda create --name=si_project python=3.7
 ```
@@ -60,19 +67,23 @@ pip install -r requirements.txt
 
 ## Usage
 
-1. Remember to switch to the right virtual environment.
+1. Checkout to the `master` branch, if you are not already on it.
+```sh
+git checkout master
+```
+2. Remember to always switch to the right virtual environment.
 ```sh
 conda activate si_project
 ```
-2. Export path to the pretrained CascadeClassifier as a global variable.
+3. Export the path to the pretrained CascadeClassifier as a global variable.
 ```sh
 export PRETRAINED_CASCLAS=/absolute/path/to/haarcascade_frontalface_default.xml
 ```
-3. Export application file as a global variable.
+4. Export the main application file as a global variable.
 ```sh
 export FLASK_APP=fer_app.py
 ```
-4. Run the application from the root directory as localhost on the specified port.
+5. Run the application from the root directory on localhost.
 ```sh
 flask run --port=X.X.X.X
 ```
