@@ -75,11 +75,11 @@ git checkout master
 ```sh
 conda activate si_project
 ```
-3. Export the path to the pretrained CascadeClassifier as a global variable.
+3. Export the path to the pretrained CascadeClassifier as an environmental variable.
 ```sh
 export PRETRAINED_CASCLAS=/absolute/path/to/haarcascade_frontalface_default.xml
 ```
-4. Export the main application file as a global variable.
+4. Export the main application file as an environmental variable.
 ```sh
 export FLASK_APP=fer_app.py
 ```
