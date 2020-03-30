@@ -47,7 +47,11 @@ git clone https://github.com/ppawlo97/si-summer-2020.git
 ```sh
 conda create --name=si_project python=3.7
 ```
-3. Install the dependencies.
+3. Switch to the created environment.
+```sh
+conda activate si_project
+```
+4. Install the dependencies.
 ```sh
 pip install -r requirements.txt
 ```
